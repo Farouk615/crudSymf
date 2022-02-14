@@ -1,3 +1,26 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+index:
+  path: /api/getPersons
+  controller: App\Controller\PersonController::getPersons
+  methods: [GET]
+getbyid:
+  path: /api/getPerson/{id}
+  controller: App\Controller\PersonController::item
+  methods: [GET]
+createuser:
+  path: /api/make
+  controller: App\Controller\PersonController::create
+  methods: [POST]
+updateperson:
+  path: /api/update/{id}
+  controller: App\Controller\PersonController::update
+  methods: [ PUT ]
+deleteperson:
+  path: /api/delete/{id}
+  controller: App\Controller\PersonController::delete
+  methods: [ DELETE ]
+
+api_login_check:
+  path: /api/login_check
