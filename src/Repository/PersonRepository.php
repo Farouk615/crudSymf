@@ -19,10 +19,10 @@ class PersonRepository extends ServiceEntityRepository
         parent::__construct($registry, Person::class);
     }
 
-    // /**
+
     //  * @return Person[] Returns an array of Person objects
     //  */
-    /*
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('p')
@@ -34,9 +34,9 @@ class PersonRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
-    /*
+
+
     public function findOneBySomeField($value): ?Person
     {
         return $this->createQueryBuilder('p')
@@ -46,5 +46,5 @@ class PersonRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+
 }

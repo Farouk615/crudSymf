@@ -24,4 +24,11 @@ class PersonType extends AbstractType
             'data_class' => Person::class,
         ]);
     }
+    /**
+     * {@inheritdoc}
+     */
+    public function getBlockPrefix()
+    {
+        return 'appbundle_absence';
+    }
 }
