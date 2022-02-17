@@ -53,7 +53,7 @@ class PersonController extends AbstractController
     public function update(Person $person,SerializerInterface $serializer,Request $request,EntityManagerInterface $entityManager,PersonRepository $personRepository):JsonResponse
         {
             $form = $this->createForm(PersonType::class, $person);
-            $form->submit(json_decode($request->getContent(), true));
+            $form->submit(json_decode($request->getContent(), true),false);
             if ($form->isSubmitted()) {
                 $entityManager->persist($person);
                 $entityManager->flush();
