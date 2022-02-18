@@ -23,11 +23,6 @@ class PersonController extends AbstractController
     {
         return new JsonResponse($serializer->serialize($personRepository->findAll(),"json"),JsonResponse::HTTP_OK,[],true);
     }
-    public function getPerson(PersonRepository $personRepository,SerializerInterface $serializer,int $id): JsonResponse
-    {
-        return new JsonResponse($serializer->serialize($personRepository->findOneBy($id),"json"),JsonResponse::HTTP_OK,[],true);
-    }
-
     #[Route('/make', name: 'create_person', methods: ['POST'])]
     public function create(Request $request,EntityManagerInterface $entityManager,SerializerInterface $serializer):JsonResponse
     {
@@ -70,4 +65,5 @@ class PersonController extends AbstractController
                 $entityManager->flush();
             return new JsonResponse($serializer->serialize($person,"json"),JsonResponse::HTTP_OK,[],true);
         }
+
 }
