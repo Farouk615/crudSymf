@@ -21,10 +21,16 @@ class PersonController extends AbstractController
 {
 
     #[Route('/getPersons', name: 'all_persons', methods: ['GET'])]
-    public function getPersons(PersonRepository $personRepository,SerializerInterface $serializer,PaginatorInterface $paginator,Request $request): JsonResponse
+    public function getPersons(PersonRepository $personRepository,SerializerInterface $serializer,PaginatorInterface $paginator,Request $request,EntityManagerInterface $entityManager): JsonResponse
     {
-        $data = $personRepository->findAll();
-        $persons = $paginator->paginate($data,$request->query->getInt('page',1),5);
+//        $data = $personRepository->findAll();
+//        dd($data);
+        //$order = $personRepository->findBy($data,array('age'=>'Desc'));
+        //dd($order);
+        $order=$request->query->get('orderBy',"age");
+        $ordered = $personRepository->getOrderedPersons($order);
+        $persons = $paginator->paginate($ordered,$request->query->getInt('page',1),5);
+//        dd($persons);
         return new JsonResponse($serializer->serialize($persons,"json"),JsonResponse::HTTP_OK,[],true);
     }
     #[Route('/make', name: 'create_person', methods: ['POST'])]

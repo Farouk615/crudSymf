@@ -46,5 +46,12 @@ class PersonRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+    public function getOrderedPersons($order){
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.'.$order, 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 }
