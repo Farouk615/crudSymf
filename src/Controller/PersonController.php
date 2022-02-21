@@ -8,6 +8,7 @@ use App\Repository\PersonRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,13 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api')]
 class PersonController extends AbstractController
 {
+
     #[Route('/getPersons', name: 'all_persons', methods: ['GET'])]
-    public function getPersons(PersonRepository $personRepository,SerializerInterface $serializer): JsonResponse
+    public function getPersons(PersonRepository $personRepository,SerializerInterface $serializer,PaginatorInterface $paginator,Request $request): JsonResponse
     {
-        return new JsonResponse($serializer->serialize($personRepository->findAll(),"json"),JsonResponse::HTTP_OK,[],true);
+        $data = $personRepository->findAll();
+        $persons = $paginator->paginate($data,$request->query->getInt('page',1),5);
+        return new JsonResponse($serializer->serialize($persons,"json"),JsonResponse::HTTP_OK,[],true);
     }
     #[Route('/make', name: 'create_person', methods: ['POST'])]
     public function create(Request $request,EntityManagerInterface $entityManager,SerializerInterface $serializer):JsonResponse
